@@ -39,7 +39,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
     return bcrypt.hash(pass, salt);
   }).then(hash => {
    var jsonpwd={'filename':req.file.filename,'pass':hash};
-  fs.writeFile('pass/'+req.file.filename+'.json', JSON.stringify(jsonpwd), (error) => {
+  fs.writeFile('pass_'+req.file.filename+'.json', JSON.stringify(jsonpwd), (error) => {
   if (error) {
     console.log('An error has occurred ', error);
     return;
@@ -62,7 +62,7 @@ app.get('/form', (req, res) => {
 app.post('/unlock', (req, res) => {
 	
   
-   fs.readFile(`pass/${req.body.fileName}.json`, "utf8", (error, data) => {
+   fs.readFile(`pass_${req.body.fileName}.json`, "utf8", (error, data) => {
   if (error) {
     console.log(error);
     return;
@@ -73,7 +73,7 @@ app.post('/unlock', (req, res) => {
 	{
 		
 	  
-  const filePath = `uploads/${req.body.fileName}`; // or any file format
+  const filePath = `uploads_${req.body.fileName}`; // or any file format
 					// Check if file specified by the filePath exists
 					fs.exists(filePath, function (exists) {
 						if (exists) {
